@@ -2,76 +2,99 @@
 #include "Board.h"
 #include <ctime>
 
-Board::Board()
+
+void Board::InitializeBoard(int size)
 {
-	size = 9;
-	mine_count = 10;
-	grid.resize(size, vector<Cell>(size));
+	mines.clear();
+	board_size = size;
+	mine_count = board_size * board_size * 0.15;
+	grid.resize(board_size, vector<Cell>(board_size));
 }
 
 void Board::PlaceMines(int first_x, int first_y)
 {
-	srand(time(0));
-	mines.clear();
+	//Place mines randomly on the board.
+	int count = 0;
+	while (count < mine_count)
+	{
+		int x = rand() % board_size;
+		int y = rand() % board_size;
 
-	while (mines.size() < mine_count)
-	{
-		//Getting new pair of x and y coordinates to place mine.
-		int x = rand() % size;
-		int y = rand() % size;
-		//Checking if the coordinate is valid as in if the cell is not a mine.
-		if ((x != first_x || y != first_y) && find(mines.begin(), mines.end(), make_pair(x, y)) == mines.end())
-			mines.push_back(make_pair(x, y));
+		if ((x == first_x && y == first_y) || grid[y][x].is_mine)
+			continue;
+
+		grid[y][x].is_mine = true;
+		mines.push_back({ x,y });
+		count++;
 	}
-	//Place mines on the grid.
-	for (auto mine : mines)
+	//Update adjacent mines numbers.
+	for (int y = 0; y < board_size; y++)
 	{
-		grid[mine.first][mine.second].is_mine = true;
-		grid[mine.first][mine.second].display = 'M';
-	}
-	//Update the adjacent cells with mine counts.
-	for (int i = 0; i < size; i++)
-	{
-		for (int j = 0; j < size; j++)
+		for (int x = 0; x < board_size; x++)
 		{
-			if (grid[i][j].is_mine) continue;
-			int count = 0;
-			//Traverse all adjacent cells.
+			if (grid[y][x].is_mine) continue;
+			int adj_mines = 0;
 			for (int adj_x = -1; adj_x <= 1; adj_x++)
 			{
 				for (int adj_y = -1; adj_y <= 1; adj_y++)
 				{
-					//x,y coordinates of one of the 8 adjacent cells.
-					int adj_i = i + adj_x;
-					int adj_j = j + adj_y;
-					//Check if the cell is mine or not and checking if it is the current cell.
-					if (!(adj_i == 0 && adj_j == 0) && adj_i >= 0 && adj_i < size && adj_j >= 0 && adj_j < size && grid[adj_i][adj_j].is_mine)
-						count++;
+					if (!(adj_x == 0 && adj_y == 0))
+					{
+						int adj_cell_x = adj_x + x;
+						int adj_cell_y = adj_y + y;
+						if (adj_cell_x >= 0 && adj_cell_x < board_size && adj_cell_y >= 0 && adj_cell_y < board_size && grid[adj_cell_y][adj_cell_x].is_mine)
+							adj_mines++;
+					}
 				}
 			}
-			//Update the mine count in the current cell.
-			if (count > 0)
-				grid[i][j].display = '0' + count;
+			if (adj_mines > 0)
+				grid[y][x].display = '0' + adj_mines;
+		}
+	}
+}
+//Fills the board until number cell appears.
+void Board::FloodFill(int x, int y)
+{
+	if (x < 0 || x >= board_size || y < 0 || y >= board_size) return;
+	if (grid[y][x].is_revealed || grid[y][x].is_mine) return;
+
+	grid[y][x].is_revealed = true;
+
+	if (grid[y][x].display != ' ') return;
+
+	for (int adj_x = -1; adj_x <= 1; adj_x++)
+	{
+		for (int adj_y = -1; adj_y <= 1; adj_y++)
+		{
+			if (adj_x == 0 && adj_y == 0) continue;
+			FloodFill(x + adj_x, y + adj_y);
 		}
 	}
 }
 
 bool Board::RevealCell(int x, int y)
 {
-	//Skips revealed cells.
-	if (grid[x][y].is_revealed) return false;
-	//Marks cell as revealed.
-	grid[x][y].is_revealed = true;
 	//Returns true if the cell is mine.
-	return grid[x][y].is_mine;
+	if (grid[y][x].is_mine)
+	{
+		grid[y][x].is_revealed = true;
+		return true;
+	}
+	//If cell is empty.
+	if (grid[y][x].display == ' ')
+		FloodFill(x, y);
+	//Marks cell as revealed.
+	else
+		grid[y][x].is_revealed = true;
+	return false;
 }
 
 bool Board::CheckWin()
 {
 	//Check if there are any unrevealed cells on the board.
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < board_size; i++)
 	{
-		for (int j = 0; j < size; j++)
+		for (int j = 0; j < board_size; j++)
 		{
 			if (!grid[i][j].is_mine && !grid[i][j].is_revealed)
 				return false;
@@ -82,21 +105,26 @@ bool Board::CheckWin()
 
 void Board::DisplayBoard()
 {
-	cout << "X ";
-	//Print the column headers.
-	for (int i = 0; i < size; i++)
-		cout << i << " ";
-	cout << endl;
-	//Print each row of the board.
-	for (int i = 0; i < size; i++)
-	{
-		cout << i << " ";
-		for (int j = 0; j < size; j++)
-		{
-			if (grid[i][j].is_revealed)
-				cout << grid[i][j].display << " ";
+	// Print top X-axis labels
+	cout << "   "; // spacing for Y-axis labels
+	for (int x = 0; x < board_size; x++) {
+		if (x < 10) cout << x << "  ";
+		else cout << x << " ";
+	}
+	cout << "\n";
+
+	// Print each row
+	for (int y = 0; y < board_size; y++) {
+		if (y < 10) cout << " " << y << " ";
+		else cout << y << " ";
+
+		for (int x = 0; x < board_size; x++) {
+			if (!grid[y][x].is_revealed)
+				cout << "#  ";
+			else if (grid[y][x].is_mine)
+				cout << "M  ";
 			else
-				cout << "# ";
+				cout << grid[y][x].display << "  ";
 		}
 		cout << endl;
 	}

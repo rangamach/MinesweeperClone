@@ -1,9 +1,9 @@
-#include "Board.h"
+#include "GameLoop.h"
 
 #include <iostream>
 
 int main()
 {
-	Board b;
-	b.DisplayBoard();
+	Gameloop* game_loop = new Gameloop();
+	game_loop->StartGame();
 }
