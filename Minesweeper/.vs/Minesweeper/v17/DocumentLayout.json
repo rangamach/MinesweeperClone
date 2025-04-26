@@ -34,12 +34,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -48,7 +44,7 @@
               "RelativeDocumentMoniker": "Minesweeper\\Board.cpp",
               "ToolTip": "C:\\Users\\ranga\\GitRepos\\MinesweeperClone\\Minesweeper\\Minesweeper\\Board.cpp",
               "RelativeToolTip": "Minesweeper\\Board.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAABAAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-16T05:52:55.941Z",
               "EditorCaption": ""
@@ -63,8 +59,7 @@
               "RelativeToolTip": "Minesweeper\\GameLoop.cpp",
               "ViewState": "AgIAAAMAAAAAAAAAAIAwwBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-16T11:57:18.612Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T11:57:18.612Z"
             },
             {
               "$type": "Document",
@@ -76,8 +71,7 @@
               "RelativeToolTip": "Minesweeper\\GameLoop.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-16T11:54:52.37Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T11:54:52.37Z"
             },
             {
               "$type": "Document",
@@ -89,8 +83,7 @@
               "RelativeToolTip": "Minesweeper\\Cell.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-16T05:45:54.138Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T05:45:54.138Z"
             },
             {
               "$type": "Document",
@@ -102,8 +95,7 @@
               "RelativeToolTip": "Minesweeper\\Board.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-16T05:45:06.93Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T05:45:06.93Z"
             },
             {
               "$type": "Document",
@@ -115,8 +107,7 @@
               "RelativeToolTip": "Minesweeper\\Minesweeper.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-16T05:36:39.602Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T05:36:39.602Z"
             }
           ]
         }

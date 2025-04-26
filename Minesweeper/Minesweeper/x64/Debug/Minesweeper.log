@@ -1,3 +1,7 @@
 ﻿  Board.cpp
-C:\Users\ranga\GitRepos\MinesweeperClone\Minesweeper\Minesweeper\Board.cpp(16,39): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\ranga\GitRepos\MinesweeperClone\Minesweeper\Minesweeper\Board.cpp(10,39): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  Cell.cpp
+  Gameloop.cpp
+  Minesweeper.cpp
+  Generating Code...
   Minesweeper.vcxproj -> C:\Users\ranga\GitRepos\MinesweeperClone\Minesweeper\x64\Debug\Minesweeper.exe
